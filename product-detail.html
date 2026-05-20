@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi tiết sản phẩm sách - Bookstore</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style_pages.css">
+    <style>
+        /* CSS bổ sung dành riêng cho trang chi tiết sách */
+        .detail-wrapper {
+            display: flex;
+            gap: 40px;
+            margin-top: 24px;
+            background: #ffffff;
+            padding: 32px;
+            border-radius: 12px;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+        }
+        .detail-left {
+            flex: 1;
+            max-width: 380px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            border: 1px solid #e5e7eb;
+            padding: 20px;
+            border-radius: 8px;
+            background: #fafafa;
+        }
+        .detail-left img {
+            width: 100%;
+            max-height: 480px;
+            object-fit: contain;
+            border-radius: 4px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        .detail-right {
+            flex: 1.5;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+        .book-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1f2937;
+            line-height: 1.3;
+        }
+        .book-meta-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+            padding: 16px;
+            background: #f8fafc;
+            border-radius: 8px;
+            border: 1px solid #edf2f7;
+            font-size: 14px;
+            color: #4b5563;
+        }
+        .book-meta-grid strong {
+            color: #1f2937;
+        }
+        .book-price-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 4px 0;
+        }
+        .book-current-price {
+            font-size: 28px;
+            font-weight: 700;
+            color: #d70018;
+        }
+        .book-old-price {
+            font-size: 16px;
+            color: #9ca3af;
+            text-decoration: line-through;
+        }
+        .book-summary-box h3 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 8px;
+            border-left: 4px solid #d70018;
+            padding-left: 8px;
+        }
+        .book-summary-text {
+            font-size: 14px;
+            color: #4b5563;
+            line-height: 1.6;
+            text-align: justify;
+        }
+        .purchase-section {
+            margin-top: auto;
+            padding-top: 20px;
+            border-top: 1px solid #e5e7eb;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .quantity-row {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .quantity-label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #1f2937;
+        }
+        .action-buttons-row {
+            display: flex;
+            gap: 16px;
+        }
+        .btn-add-to-cart {
+            flex: 1;
+            background: #fff5f5;
+            color: #d70018;
+            border: 2px solid #d70018;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s;
+        }
+        .btn-add-to-cart:hover {
+            background: #ffe4e6;
+        }
+        .btn-buy-now {
+            flex: 1;
+            background: #d70018;
+            color: #ffffff;
+            border: none;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .btn-buy-now:hover {
+            background: #b50014;
+        }
+        @media (max-width: 768px) {
+            .detail-wrapper {
+                flex-direction: column;
+            }
+            .detail-left {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body class="cart-body">
+
+    <div class="container" style="margin-top: 24px; max-width: 1200px; margin-left: auto; margin-right: auto; padding-left: 16px; padding-right: 16px;">
+        <a href="index.html" style="color: #4b5563; font-weight: 500; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 16px;">
+            <i class="fa-solid fa-arrow-left"></i> Quay lại danh mục sách
+        </a>
+        
+        <div class="detail-wrapper">
+            
+            <div class="detail-left">
+                <img id="book-cover" src="https://images.unsplash.com/photo-1544947950-fa07a98d237f?auto=format&fit=crop&q=80&w=400" alt="Bìa sách sắc nét">
+            </div>
+            
+            <div class="detail-right">
+                <h1 class="book-title" id="book-title">Đang tải tiêu đề sách...</h1>
+                
+                <div class="book-meta-grid">
+                    <div><i class="fa-solid fa-user-pen" style="width: 20px; color: #d70018;"></i> <strong>Tác giả:</strong> <span id="book-author">-</span></div>
+                    <div><i class="fa-solid fa-language" style="width: 20px; color: #d70018;"></i> <strong>Dịch giả:</strong> <span id="book-translator">-</span></div>
+                    <div><i class="fa-solid fa-file-lines" style="width: 20px; color: #d70018;"></i> <strong>Số trang:</strong> <span id="book-pages">-</span> trang</div>
+                    <div><i class="fa-solid fa-book-open" style="width: 20px; color: #d70018;"></i> <strong>Loại bìa:</strong> <span id="book-cover-type">-</span></div>
+                </div>
+
+                <div class="book-price-row">
+                    <span class="book-current-price" id="book-price">0đ</span>
+                    <span class="book-old-price" id="book-old-price">0đ</span>
+                </div>
+
+                <div class="book-summary-box">
+                    <h3>Tóm tắt nội dung sách</h3>
+                    <p class="book-summary-text" id="book-description">
+                        Đang tải nội dung tóm tắt của cuốn sách...
+                    </p>
+                </div>
+
+                <div class="purchase-section">
+                    <div class="quantity-row">
+                        <span class="quantity-label">Số lượng:</span>
+                        <div class="quantity-control" style="display: flex; border: 1px solid #e5e7eb; border-radius: 4px; overflow: hidden;">
+                            <button class="qty-btn" id="btn-minus" style="background-color: #f9fafb; border: none; width: 32px; height: 32px; font-size: 16px; cursor: pointer; font-weight: bold;">-</button>
+                            <input type="text" class="qty-input" id="qty-input" value="1" readonly style="width: 40px; height: 32px; border: none; border-left: 1px solid #e5e7eb; border-right: 1px solid #e5e7eb; text-align: center; font-size: 14px; font-weight: 600; outline: none;">
+                            <button class="qty-btn" id="btn-plus" style="background-color: #f9fafb; border: none; width: 32px; height: 32px; font-size: 16px; cursor: pointer; font-weight: bold;">+</button>
+                        </div>
+                    </div>
+
+                    <div class="action-buttons-row">
+                        <button class="btn-add-to-cart" id="btn-add-to-cart">
+                            <i class="fa-solid fa-cart-plus"></i> Thêm vào giỏ hàng
+                        </button>
+                        <button class="btn-buy-now" id="btn-buy-now">
+                            Mua ngay
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script src="product-detail.js"></script>
+</body>
+</html>

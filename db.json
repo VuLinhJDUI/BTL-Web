@@ -1,0 +1,95 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "email": "nguyenvana@gmail.com",
+      "password": "mật_khẩu_sẽ_tự_động_mã_hóa_khi_đăng_ký",
+      "name": "Nguyễn Văn A",
+      "phone": "0987654321"
+    }
+  ],
+  "products": [
+    {
+      "id": "sp01",
+      "name": "Quạt làm mát không khí hơi nước FujiHome AC-17N",
+      "brand": "FujiHome",
+      "price": 2390000,
+      "oldPrice": 3140000,
+      "image": "images/fan-fujihome.webp",
+      "badge": "Giảm 24%",
+      "tag": "Hàng mới về",
+      "gift": "Nhận ngay Máy tạo ẩm FujiHome HM01, không lấy quà quy đổi 100K",
+      "specs": {
+        "speeds": "3 cấp độ",
+        "power": "60W"
+      },
+      "rating": 4.5
+    },
+    {
+      "id": "sp02",
+      "name": "Quạt Xiaomi Smart Standing Fan Pro Slim EU",
+      "brand": "Xiaomi",
+      "price": 3190000,
+      "oldPrice": 3990000,
+      "image": "images/fan-xiaomi.webp",
+      "badge": "Giảm 20%",
+      "tag": "Hàng mới về",
+      "gift": "Tặng Sạc dự phòng STARGO STAR 20000mAh, không lấy quà quy đổi 150K",
+      "specs": {
+        "speeds": "Thông minh",
+        "power": "Đang cập nhật"
+      },
+      "rating": 5.0
+    },
+    {
+      "id": "sp03",
+      "name": "Quạt Sạc Sunhouse SHD7115 Chống Mất Điện",
+      "brand": "Sunhouse",
+      "price": 1290000,
+      "oldPrice": 1400000,
+      "image": "images/fan-sunhouse.webp",
+      "badge": "Giảm 8%",
+      "tag": "",
+      "gift": "",
+      "specs": {
+        "speeds": "Đa chế độ",
+        "power": "Pin sạc"
+      },
+      "rating": 4.0
+    },
+    {
+      "id": "sp04",
+      "name": "Quạt cầm tay cao cấp Jisulife Pro1 S (Fa53 Pro) 5000mAh",
+      "brand": "Jisulife",
+      "price": 990000,
+      "oldPrice": 1300000,
+      "image": "images/fan-jisulif.webp",
+      "badge": "Giảm 24%",
+      "tag": "",
+      "gift": "",
+      "specs": {
+        "speeds": "Vô cấp",
+        "power": "5000mAh"
+      },
+      "rating": 4.0
+    }
+  ],
+  "orders": [
+    {
+      "id": "ORD2026052001",
+      "userId": 1,
+      "items": [
+        {
+          "productId": "sp01",
+          "name": "Quạt làm mát không khí hơi nước FujiHome AC-17N",
+          "price": 2390000,
+          "quantity": 1,
+          "image": "images\fan-fujihome.webp"
+        }
+      ],
+      "totalPrice": 2390000,
+      "createdAt": "20/05/2026",
+      "status": "Đã nhận hàng"
+    }
+  ]
+}

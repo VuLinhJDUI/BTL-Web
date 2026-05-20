@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trang web bán quạt điện - E-commerce UI</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header class="header">
+        <div class="container header-content">
+            <a href="#" class="logo">
+                <i class="fa-solid fa-fan"></i>
+                <span>ONLY<strong>FAN</strong></span>
+            </a>
+
+            <div class="search-bar">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input type="text" placeholder="Tìm kiếm quạt điện, máy sưởi...">
+            </div>
+
+            <nav class="main-nav">
+                <a href="#">Trang chủ</a>
+                <a href="#">Danh mục</a>
+                <a href="#">Khuyến mãi</a>
+                <a href="#">Tin tức</a>
+            </nav>
+
+            <div class="header-actions">
+                <a href="cart.html" class="cart-btn">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span class="cart-count">4</span>
+                </a>
+                <a href="login.html" class="login-btn" id="header-auth-btn">
+                    <i class="fa-regular fa-user"></i>
+                    Đăng nhập
+                </a>
+                <button class="mobile-menu-btn">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <div class="page-title">
+            <h1>Đồ điện gia dụng / Quạt điện</h1>
+        </div>
+
+        <section class="filter-section">
+            <div class="filter-header">
+                <i class="fa-solid fa-filter"></i> <span>Bộ lọc:</span>
+            </div>
+            <div class="filter-buttons">
+                <button><i class="fa-solid fa-box"></i> Sẵn hàng</button>
+                <button><i class="fa-solid fa-tag"></i> Xem theo giá <i class="fa-solid fa-chevron-down icon-sm"></i></button>
+                <button>Phạm vi quạt <i class="fa-solid fa-chevron-down icon-sm"></i></button>
+                <button>Công suất <i class="fa-solid fa-chevron-down icon-sm"></i></button>
+                <button>Tiện ích <i class="fa-solid fa-chevron-down icon-sm"></i></button>
+                <button>Hãng <i class="fa-solid fa-chevron-down icon-sm"></i></button>
+            </div>
+            
+            <div class="sort-section">
+                <span>Sắp xếp theo:</span>
+                <button class="active"><i class="fa-solid fa-star"></i> Phổ biến</button>
+                <button>Khuyến mãi HOT</button>
+                <button><i class="fa-solid fa-arrow-up-1-9"></i> Giá Thấp - Cao</button>
+                <button><i class="fa-solid fa-arrow-down-9-1"></i> Giá Cao - Thấp</button>
+            </div>
+        </section>
+
+        <section class="product-grid" id="product-list">
+            
+        </section>
+
+        <div class="load-more">
+            <button class="btn-outline">
+                Xem thêm 172 sản phẩm <i class="fa-solid fa-chevron-down"></i>
+            </button>
+        </div>
+
+        <section class="seo-section">
+            <h2>Giới thiệu về Quạt Điện & Đồ điện gia dụng</h2>
+            <div class="seo-content" id="seo-content">
+                <p><strong>Đồ điện gia dụng</strong> đã trở nên phổ biến trong nhiều hộ gia đình Việt với những công dụng tuyệt vời hỗ trợ cho công việc nội trợ, dọn dẹp vệ sinh nhà ở và làm mát không gian. Các món đồ điện từ gia dụng hiện nay còn có nhiều tính năng tích hợp để mang đến những trải nghiệm đa năng hơn.</p>
+                <p>Trong đó, <strong>quạt điện</strong> là thiết bị không thể thiếu trong mùa hè. Với sự đa dạng về chủng loại như quạt đứng, quạt trần, quạt hơi nước, quạt tháp và quạt không cánh, người tiêu dùng dễ dàng lựa chọn sản phẩm phù hợp với nhu cầu và diện tích sử dụng. Các hãng nổi tiếng như Xiaomi, Sunhouse, FujiHome liên tục cải tiến công nghệ, giảm độ ồn, tăng cường khả năng lọc không khí và tích hợp điều khiển thông minh qua điện thoại.</p>
+                <p>Khi chọn mua quạt điện, bạn nên lưu ý đến công suất, kích thước cánh quạt, và các tiện ích đi kèm như chế độ hẹn giờ, tiết kiệm điện Inverter, hay chức năng tạo ion âm làm sạch không khí để bảo vệ sức khỏe cho cả gia đình.</p>
+                <div class="seo-gradient" id="seo-gradient"></div>
+            </div>
+            <div class="seo-readmore">
+                <button id="read-more-btn">
+                    Xem thêm <i class="fa-solid fa-chevron-down"></i>
+                </button>
+            </div>
+        </section>
+        
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-grid">
+            <div class="footer-col">
+                <a href="#" class="footer-logo">
+                    <i class="fa-solid fa-fan"></i>
+                    <span>ONLY<strong>FAN</strong></span>
+                </a>
+                <ul class="contact-info">
+                    <li><i class="fa-solid fa-location-dot"></i> 123 Đường Điện Biên Phủ, Quận 1, TP. Hồ Chí Minh</li>
+                    <li><i class="fa-solid fa-phone"></i> Tổng đài hỗ trợ: <strong>1800.2097</strong></li>
+                    <li><i class="fa-solid fa-envelope"></i> Email: cskh@onlyfan.vn</li>
+                    <li><i class="fa-regular fa-clock"></i> Giờ làm việc: 7h30 - 22h00</li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Chính sách & Hỗ trợ</h4>
+                <ul>
+                    <li><a href="#">Chính sách bảo mật thông tin</a></li>
+                    <li><a href="#">Chính sách đổi trả & bảo hành</a></li>
+                    <li><a href="#">Hướng dẫn mua hàng trả góp</a></li>
+                    <li><a href="#">Giao hàng và thanh toán</a></li>
+                    <li><a href="#">Quy định về việc sao lưu dữ liệu</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Tra cứu thông tin</h4>
+                <ul>
+                    <li><a href="#">Tra điểm thẻ thành viên</a></li>
+                    <li><a href="#">Kiểm tra đơn hàng</a></li>
+                    <li><a href="#">Tra cứu thông tin bảo hành</a></li>
+                    <li><a href="#">Trung tâm bảo hành chính hãng</a></li>
+                    <li><a href="#">Tuyển dụng</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col">
+                <h4>Kết nối với chúng tôi</h4>
+                <div class="social-links">
+                    <a href="#" class="fb"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="yt"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#" class="tt"><i class="fa-brands fa-tiktok"></i></a>
+                </div>
+                <h4>Phương thức thanh toán</h4>
+                <div class="payment-methods">
+                    <i class="fa-brands fa-cc-visa"></i>
+                    <i class="fa-brands fa-cc-mastercard"></i>
+                    <i class="fa-brands fa-apple-pay"></i>
+                </div>
+                <div class="copyright">
+                    © 2026 ONLYFAN. All rights reserved.<br>
+                    Website thiết kế cho mục đích tham khảo UI/UX.
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('read-more-btn').addEventListener('click', function() {
+            document.getElementById('seo-content').classList.add('expanded');
+            document.getElementById('seo-gradient').style.display = 'none';
+            this.style.display = 'none';
+        });
+    </script>
+    <script src="main.js"></script>
+</body>
+</html>

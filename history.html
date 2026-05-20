@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lịch sử mua hàng</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style_pages.css">
+    <script src="auth.js"></script>
+</head>
+<body class="history-body">
+
+    <div class="history-container">
+        <header class="cart-header" style="margin-bottom: 20px; border-bottom: none; padding: 0;">
+            <a href="index.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Về trang chủ</a>
+        </header>
+
+        <div class="history-tabs">
+            <button class="tab-link active">Tất cả</button>
+            <button class="tab-link">Chờ xác nhận</button>
+            <button class="tab-link">Đang xử lý</button>
+            <button class="tab-link">Đang vận chuyển</button>
+            <button class="tab-link">Đã nhận hàng</button>
+            <button class="tab-link">Đã huỷ</button>
+        </div>
+
+        <div class="date-filter-row">
+            <span class="filter-label">Lịch sử mua hàng</span>
+            <div class="date-picker-box">
+                <span class="date-text">01/12/2020</span>
+                <i class="fa-solid fa-arrow-right"></i>
+                <span class="date-text">19/05/2026</span>
+                <i class="fa-regular fa-calendar-days calendar-icon"></i>
+            </div>
+        </div>
+
+        <div class="orders-list" id="orders-container">
+            <p style="text-align: center; padding: 32px; color: #6b7280;">Đang tải lịch sử mua hàng...</p>
+        </div>
+    </div>
+
+    <script src="history.js"></script>
+</body>
+</html>

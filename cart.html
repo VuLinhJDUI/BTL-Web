@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giỏ hàng của bạn</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style_pages.css">
+    <script src="auth.js"></script>
+</head>
+<body class="cart-body">
+
+    <div class="cart-container">
+        <header class="cart-header">
+            <a href="index.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i></a>
+            <h2>Giỏ hàng của bạn</h2>
+            <div></div>
+        </header>
+
+        <div class="cart-tabs">
+            <button class="tab-item active">Giỏ hàng</button>
+        </div>
+
+        <div class="select-all-row">
+            <label class="custom-checkbox-label">
+                <input type="checkbox" class="custom-checkbox" id="select-all">
+                <span class="checkbox-text">Chọn tất cả</span>
+            </label>
+        </div>
+
+        <div id="cart-items-container">
+            </div>
+
+        <div class="cart-summary-bar">
+            <div class="summary-left">
+                <span>Tạm tính:</span>
+                <span class="total-price" id="total-price">0đ</span>
+            </div>
+            <button class="btn-checkout disabled" id="checkout-btn">Mua ngay</button>
+        </div>
+    </div>
+
+    <script src="cart.js"></script>
+</body>
+</html>
