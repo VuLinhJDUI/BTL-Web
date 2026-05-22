@@ -129,17 +129,26 @@ document.addEventListener("DOMContentLoaded", () => {
         updateSummary();
     });
 
-    // 3. XỬ LÝ THANH TOÁN (TẠO ĐƠN HÀNG LÊN JSON-SERVER)
+    // 3. XỬ LÝ THANH TOÁN (TẠO ĐƠN HÀNG LÊN SERVER)
     checkoutBtn.addEventListener("click", () => {
         if (checkoutBtn.classList.contains("disabled")) return;
 
-        // Lấy thông tin user hiện tại
-        const user = JSON.parse(localStorage.getItem("user"));
+        // Lấy thông tin user và token hiện tại
+        const userJson = localStorage.getItem("user");
+        const token = localStorage.getItem("accessToken");
+
+        // Kiểm tra an toàn: Nếu mất token thì bắt đăng nhập lại
+        if (!userJson || !token) {
+            alert("Vui lòng đăng nhập để thực hiện thanh toán!");
+            window.location.href = "login.html";
+            return;
+        }
         
-        // Lọc ra các sản phẩm được chọn mua
+        const user = JSON.parse(userJson);
         const selectedItems = [];
         let totalPrice = 0;
         
+        // Lọc ra các sản phẩm được chọn mua
         const itemCheckboxes = document.querySelectorAll(".item-checkbox");
         itemCheckboxes.forEach(checkbox => {
             if (checkbox.checked) {
@@ -149,13 +158,12 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
-        // Tạo chuỗi ngày định dạng DD/MM/YYYY
         const today = new Date();
         const formattedDate = `${today.getDate().toString().padStart(2, '0')}/${(today.getMonth() + 1).toString().padStart(2, '0')}/${today.getFullYear()}`;
 
         // Tạo dữ liệu Đơn hàng
         const newOrder = {
-            id: "ORD" + Date.now(), // Tạo mã đơn ngẫu nhiên
+            id: "ORD" + Date.now(), 
             userId: user.id,
             items: selectedItems,
             totalPrice: totalPrice,
@@ -163,13 +171,22 @@ document.addEventListener("DOMContentLoaded", () => {
             status: "Đang xử lý"
         };
 
-        // Gửi lệnh lên máy chủ
+        // Gửi lệnh lên máy chủ kẹp theo Token bảo mật
         fetch("http://localhost:3000/orders", {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: { 
+                "Content-Type": "application/json",
+                "Authorization": token // Bổ sung Thẻ thông hành vào đây
+            },
             body: JSON.stringify(newOrder)
         })
-        .then(res => res.json())
+        .then(async res => {
+            if (!res.ok) {
+                const errData = await res.json();
+                throw new Error(errData.error || "Thanh toán thất bại");
+            }
+            return res.json();
+        })
         .then(() => {
             alert("Thanh toán thành công!");
             
@@ -180,7 +197,10 @@ document.addEventListener("DOMContentLoaded", () => {
             // Chuyển hướng sang trang lịch sử
             window.location.href = "history.html";
         })
-        .catch(err => console.error(err));
+        .catch(err => {
+            console.error(err);
+            alert("Lỗi: " + err.message);
+        });
     });
 
     // Khởi chạy khi load trang

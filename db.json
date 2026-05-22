@@ -2,15 +2,51 @@
   "users": [
     {
       "id": 1,
+      "email": "admin@onlyfan.vn",
+      "password": "123",
+      "name": "Quản trị viên",
+      "phone": "0999999999",
+      "role": "admin"
+    },
+    {
+      "id": 2,
       "email": "nguyenvana@gmail.com",
       "password": "mật_khẩu_sẽ_tự_động_mã_hóa_khi_đăng_ký",
       "name": "Nguyễn Văn A",
-      "phone": "0987654321"
+      "phone": "0987654321",
+      "role": "customer"
+    },
+    {
+      "id": 3,
+      "email": "lethib@gmail.com",
+      "password": "123",
+      "name": "Lê Thị B",
+      "phone": "0912345678",
+      "role": "customer"
+    }
+  ],
+  "categories": [
+    {
+      "id": "cat01",
+      "name": "Quạt điều hòa - Hơi nước"
+    },
+    {
+      "id": "cat02",
+      "name": "Quạt cây - Quạt đứng thông minh"
+    },
+    {
+      "id": "cat03",
+      "name": "Quạt tích điện - Chống mất điện"
+    },
+    {
+      "id": "cat04",
+      "name": "Quạt cầm tay - Di động mini"
     }
   ],
   "products": [
     {
       "id": "sp01",
+      "categoryId": "cat01",
       "name": "Quạt làm mát không khí hơi nước FujiHome AC-17N",
       "brand": "FujiHome",
       "price": 2390000,
@@ -23,10 +59,13 @@
         "speeds": "3 cấp độ",
         "power": "60W"
       },
-      "rating": 4.5
+      "rating": 4.5,
+      "stock": 50,
+      "description": "Quạt làm mát không khí hơi nước FujiHome AC-17N sở hữu thiết kế hiện đại, khả năng làm mát nhanh chóng trên diện tích rộng, tiết kiệm điện năng tối ưu và vận hành cực kỳ êm ái, phù hợp cho phòng khách và không gian mở."
     },
     {
       "id": "sp02",
+      "categoryId": "cat02",
       "name": "Quạt Xiaomi Smart Standing Fan Pro Slim EU",
       "brand": "Xiaomi",
       "price": 3190000,
@@ -39,10 +78,13 @@
         "speeds": "Thông minh",
         "power": "Đang cập nhật"
       },
-      "rating": 5.0
+      "rating": 5.0,
+      "stock": 25,
+      "description": "Quạt thông minh Xiaomi Smart Standing Fan Pro Slim mang đến làn gió tự nhiên mềm mại, có thể điều khiển từ xa qua ứng dụng Mi Home, tích hợp pin dự phòng hoạt động liên tục nhiều giờ khi mất điện."
     },
     {
       "id": "sp03",
+      "categoryId": "cat03",
       "name": "Quạt Sạc Sunhouse SHD7115 Chống Mất Điện",
       "brand": "Sunhouse",
       "price": 1290000,
@@ -55,10 +97,13 @@
         "speeds": "Đa chế độ",
         "power": "Pin sạc"
       },
-      "rating": 4.0
+      "rating": 4.0,
+      "stock": 80,
+      "description": "Giải pháp giải nhiệt hoàn hảo cho mùa hè hay mất điện. Quạt sạc Sunhouse SHD7115 có thời gian sử dụng pin lâu, tích hợp đèn LED tiện lợi, thiết kế nhỏ gọn dễ di chuyển."
     },
     {
       "id": "sp04",
+      "categoryId": "cat04",
       "name": "Quạt cầm tay cao cấp Jisulife Pro1 S (Fa53 Pro) 5000mAh",
       "brand": "Jisulife",
       "price": 990000,
@@ -71,25 +116,43 @@
         "speeds": "Vô cấp",
         "power": "5000mAh"
       },
-      "rating": 4.0
+      "rating": 4.0,
+      "stock": 150,
+      "description": "Quạt cầm tay phân khúc cao cấp Jisulife Pro1 S với dung lượng pin khủng 5000mAh, động cơ phản lực cho sức gió cực mạnh, điều chỉnh tốc độ vô cấp từ 1 đến 100."
     }
   ],
   "orders": [
     {
       "id": "ORD2026052001",
-      "userId": 1,
+      "userId": 2,
       "items": [
         {
           "productId": "sp01",
           "name": "Quạt làm mát không khí hơi nước FujiHome AC-17N",
           "price": 2390000,
           "quantity": 1,
-          "image": "images\fan-fujihome.webp"
+          "image": "images/fan-fujihome.webp"
         }
       ],
       "totalPrice": 2390000,
       "createdAt": "20/05/2026",
       "status": "Đã nhận hàng"
+    },
+    {
+      "id": "ORD2026052102",
+      "userId": 3,
+      "items": [
+        {
+          "productId": "sp04",
+          "name": "Quạt cầm tay cao cấp Jisulife Pro1 S (Fa53 Pro) 5000mAh",
+          "price": 990000,
+          "quantity": 2,
+          "image": "images/fan-jisulif.webp"
+        }
+      ],
+      "totalPrice": 1980000,
+      "createdAt": "21/05/2026",
+      "status": "Đang xử lý"
     }
   ]
 }

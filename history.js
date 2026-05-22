@@ -1,27 +1,37 @@
 document.addEventListener("DOMContentLoaded", () => {
     const ordersContainer = document.getElementById("orders-container");
 
-    // Lấy thông tin user hiện tại từ LocalStorage
     const userJson = localStorage.getItem("user");
-    if (!userJson) return; // Nếu chưa đăng nhập thì file auth.js đã xử lý chuyển hướng rồi
+    const token = localStorage.getItem("accessToken");
 
-    const user = JSON.parse(userJson);
+    // Nếu chưa đăng nhập hoặc mất token thì đẩy về trang login
+    if (!userJson || !token) {
+        window.location.href = "login.html";
+        return; 
+    }
 
-    // 1. GỌI API LẤY DANH SÁCH ĐƠN HÀNG
+    // 1. GỌI API LẤY DANH SÁCH ĐƠN HÀNG (CÓ BẢO MẬT TOKEN)
     function fetchOrders() {
-        // Query param ?userId=... giúp lọc đúng đơn hàng của tài khoản đang đăng nhập
-        fetch(`http://localhost:3000/orders?userId=${user.id}`)
-            .then(response => {
-                if (!response.ok) throw new Error("Lỗi khi tải lịch sử mua hàng");
-                return response.json();
-            })
-            .then(orders => {
-                renderOrders(orders);
-            })
-            .catch(error => {
-                console.error(error);
-                ordersContainer.innerHTML = `<p style="text-align: center; color: red;">Không thể tải lịch sử mua hàng lúc này.</p>`;
-            });
+        fetch("http://localhost:3000/orders", {
+            method: "GET",
+            headers: {
+                "Authorization": token // Gửi token thay vì truyền URL
+            }
+        })
+        .then(async response => {
+            if (!response.ok) {
+                const errData = await response.json();
+                throw new Error(errData.error || "Lỗi khi tải lịch sử mua hàng");
+            }
+            return response.json();
+        })
+        .then(orders => {
+            renderOrders(orders);
+        })
+        .catch(error => {
+            console.error(error);
+            ordersContainer.innerHTML = `<p style="text-align: center; color: red;">${error.message}</p>`;
+        });
     }
 
     // 2. RENDER ĐƠN HÀNG RA GIAO DIỆN
@@ -31,14 +41,12 @@ document.addEventListener("DOMContentLoaded", () => {
             return;
         }
 
-        // Đảo ngược mảng để đơn hàng mới nhất hiện lên đầu tiên
-        orders.reverse();
+        orders.reverse(); // Mới nhất lên đầu
 
         let html = "";
         orders.forEach(order => {
             const formattedTotal = order.totalPrice.toLocaleString('vi-VN') + 'đ';
             
-            // Render danh sách sản phẩm bên trong 1 đơn hàng (vì 1 đơn có thể mua nhiều món)
             let itemsHtml = "";
             order.items.forEach(item => {
                 const itemPrice = item.price.toLocaleString('vi-VN') + 'đ';
@@ -56,9 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 `;
             });
 
-            // Gắn class CSS tương ứng với trạng thái đơn hàng
             let statusClass = "status-success";
-            // Bạn có thể tự thêm class .status-warning vào style_pages.css với màu cam/vàng
             if (order.status === "Đang xử lý") statusClass = "status-warning"; 
             
             html += `
@@ -89,6 +95,5 @@ document.addEventListener("DOMContentLoaded", () => {
         ordersContainer.innerHTML = html;
     }
 
-    // Kích hoạt việc lấy dữ liệu khi trang vừa tải xong
     fetchOrders();
 });
