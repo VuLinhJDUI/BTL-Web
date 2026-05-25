@@ -78,7 +78,7 @@
         "speeds": "Thông minh",
         "power": "Đang cập nhật"
       },
-      "rating": 5.0,
+      "rating": 5,
       "stock": 25,
       "description": "Quạt thông minh Xiaomi Smart Standing Fan Pro Slim mang đến làn gió tự nhiên mềm mại, có thể điều khiển từ xa qua ứng dụng Mi Home, tích hợp pin dự phòng hoạt động liên tục nhiều giờ khi mất điện."
     },
@@ -97,7 +97,7 @@
         "speeds": "Đa chế độ",
         "power": "Pin sạc"
       },
-      "rating": 4.0,
+      "rating": 4,
       "stock": 80,
       "description": "Giải pháp giải nhiệt hoàn hảo cho mùa hè hay mất điện. Quạt sạc Sunhouse SHD7115 có thời gian sử dụng pin lâu, tích hợp đèn LED tiện lợi, thiết kế nhỏ gọn dễ di chuyển."
     },
@@ -116,7 +116,7 @@
         "speeds": "Vô cấp",
         "power": "5000mAh"
       },
-      "rating": 4.0,
+      "rating": 4,
       "stock": 150,
       "description": "Quạt cầm tay phân khúc cao cấp Jisulife Pro1 S với dung lượng pin khủng 5000mAh, động cơ phản lực cho sức gió cực mạnh, điều chỉnh tốc độ vô cấp từ 1 đến 100."
     }
@@ -153,6 +153,40 @@
       "totalPrice": 1980000,
       "createdAt": "21/05/2026",
       "status": "Đang xử lý"
+    },
+    {
+      "id": "ORD1779738446691",
+      "userId": 3,
+      "items": [
+        {
+          "id": "sp02",
+          "name": "Quạt Xiaomi Smart Standing Fan Pro Slim EU",
+          "price": 3190000,
+          "oldPrice": 3990000,
+          "image": "images/fan-xiaomi.webp",
+          "quantity": 1
+        }
+      ],
+      "totalPrice": 3190000,
+      "createdAt": "2026-05-25T19:47:26.691Z",
+      "status": "Chờ duyệt"
+    },
+    {
+      "id": "ORD1779738608135",
+      "userId": 3,
+      "items": [
+        {
+          "id": "sp04",
+          "name": "Quạt cầm tay cao cấp Jisulife Pro1 S (Fa53 Pro) 5000mAh",
+          "price": 990000,
+          "oldPrice": 1300000,
+          "image": "images/fan-jisulif.webp",
+          "quantity": 1
+        }
+      ],
+      "totalPrice": 990000,
+      "createdAt": "2026-05-25T19:50:08.135Z",
+      "status": "Chờ duyệt"
     }
   ]
 }

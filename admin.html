@@ -33,7 +33,7 @@
         </div>
         <nav class="flex-1 p-4 space-y-2">
             <button onclick="switchTab('books')" id="btn-books" class="tab-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg bg-gray-800 text-white font-semibold border-l-4 border-primary text-left">
-                <i class="fa-solid fa-book w-5"></i> Quản lý Sách / SP
+                <i class="fa-solid fa-fan w-5"></i> Quản lý Quạt / SP
             </button>
             <button onclick="switchTab('categories')" id="btn-categories" class="tab-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg text-gray-400 hover:bg-gray-800 hover:text-white font-medium text-left">
                 <i class="fa-solid fa-layer-group w-5"></i> Quản lý Danh mục
@@ -42,7 +42,7 @@
                 <i class="fa-solid fa-users w-5"></i> Quản lý Tài khoản
             </button>
             <button onclick="switchTab('orders')" id="btn-orders" class="tab-btn w-full flex items-center gap-3 px-4 py-3 rounded-lg text-gray-400 hover:bg-gray-800 hover:text-white font-medium text-left">
-                <i class="fa-solid fa-box-open w-5"></i> Đơn hàng
+                <i class="fa-solid fa-box-open w-5"></i> Quản lý Đơn hàng
             </button>
         </nav>
         <div class="p-4 border-t border-gray-800">
@@ -54,15 +54,15 @@
 
     <div class="flex-1 flex flex-col overflow-y-auto">
         <header class="bg-white px-6 py-4 flex justify-between items-center border-b">
-            <h1 id="page-title" class="text-xl font-bold">Quản lý Sản phẩm / Sách</h1>
+            <h1 id="page-title" class="text-xl font-bold">Quản lý Quạt / Sản phẩm</h1>
         </header>
 
         <main class="p-6">
             <div id="tab-books" class="tab-content bg-white rounded-lg shadow-sm border p-6">
                 <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-lg font-semibold">Danh sách Sách / Sản phẩm</h2>
+                    <h2 class="text-lg font-semibold">Danh sách Quạt / Sản phẩm hiện có</h2>
                     <button onclick="openModal('book')" class="bg-primary hover:bg-red-700 text-white px-4 py-2 rounded-md text-sm font-medium flex items-center gap-2">
-                        <i class="fa-solid fa-plus"></i> Thêm mới
+                        <i class="fa-solid fa-plus"></i> Thêm sản phẩm mới
                     </button>
                 </div>
                 <table class="w-full text-left text-sm">
@@ -70,8 +70,8 @@
                         <tr>
                             <th class="p-3">ID</th>
                             <th class="p-3">Hình ảnh</th>
-                            <th class="p-3">Tên Sách/SP</th>
-                            <th class="p-3">Danh mục</th>
+                            <th class="p-3">Tên sản phẩm</th>
+                            <th class="p-3">Mã danh mục</th>
                             <th class="p-3">Giá tiền</th>
                             <th class="p-3 text-right">Hành động</th>
                         </tr>
@@ -89,16 +89,17 @@
             </div>
 
             <div id="tab-orders" class="tab-content hidden bg-white rounded-lg shadow-sm border p-6">
-                <h2 class="text-lg font-semibold mb-4">Trạng thái Đơn hàng</h2>
+                <h2 class="text-lg font-semibold mb-4">Danh sách Đơn hàng toàn hệ thống</h2>
                 <table class="w-full text-left text-sm">
                     <thead class="bg-gray-50 text-gray-600 border-b">
                         <tr>
                             <th class="p-3">Mã Đơn</th>
-                            <th class="p-3">Khách hàng</th>
-                            <th class="p-3">Ngày đặt</th>
-                            <th class="p-3">Tổng tiền</th>
+                            <th class="p-3">ID Khách</th>
+                            <th class="p-3">Ngày đặt đơn</th>
+                            <th class="p-3">Tổng thanh toán</th>
                             <th class="p-3">Trạng thái</th>
-                            <th class="p-3 text-right">Xử lý</th>
+                            <th class="p-3 text-center">Hành động nhanh</th>
+                            <th class="p-3 text-right">Thay đổi trạng thái</th>
                         </tr>
                     </thead>
                     <tbody id="order-list-table"></tbody>
@@ -110,26 +111,26 @@
     <div id="form-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
         <div class="bg-white rounded-lg w-full max-w-md p-6">
             <div class="flex justify-between items-center mb-4 border-b pb-2">
-                <h3 id="modal-title" class="text-lg font-bold">Thêm Sách / Sản Phẩm</h3>
+                <h3 id="modal-title" class="text-lg font-bold">Thêm Quạt / Sản Phẩm</h3>
                 <button onclick="closeModal()" class="text-gray-500 hover:text-gray-800 text-xl">&times;</button>
             </div>
             <form id="crud-form" onsubmit="handleFormSubmit(event)">
                 <input type="hidden" id="edit-id">
                 <div class="space-y-4">
                     <div>
-                        <label class="block text-sm font-medium mb-1">Tên sách / sản phẩm</label>
+                        <label class="block text-sm font-medium mb-1">Tên quạt / sản phẩm</label>
                         <input type="text" id="input-name" required class="w-full border rounded-md px-3 py-2 text-sm focus:outline-none focus:border-primary">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium mb-1">Danh mục</label>
+                        <label class="block text-sm font-medium mb-1">Mã Danh mục (Ví dụ: cat01, cat02)</label>
                         <input type="text" id="input-category" class="w-full border rounded-md px-3 py-2 text-sm focus:outline-none focus:border-primary">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium mb-1">Giá bán</label>
+                        <label class="block text-sm font-medium mb-1">Giá bán hiện tại (đ)</label>
                         <input type="number" id="input-price" required class="w-full border rounded-md px-3 py-2 text-sm focus:outline-none focus:border-primary">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium mb-1">Hình ảnh</label>
+                        <label class="block text-sm font-medium mb-1">Đường dẫn hình ảnh (URL / Path)</label>
                         <input type="text" id="input-image" class="w-full border rounded-md px-3 py-2 text-sm focus:outline-none focus:border-primary">
                     </div>
                 </div>

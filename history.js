@@ -10,12 +10,16 @@ document.addEventListener("DOMContentLoaded", () => {
         return; 
     }
 
-    // 1. GỌI API LẤY DANH SÁCH ĐƠN HÀNG (CÓ BẢO MẬT TOKEN)
+    // Chuyển đổi thông tin chuỗi JSON của user sang Object để lấy id
+    const user = JSON.parse(userJson);
+
+    // 1. GỌI API LẤY DANH SÁCH ĐƠN HÀNG THEO USERID (CÓ BẢO MẬT TOKEN)
     function fetchOrders() {
-        fetch("http://localhost:3000/orders", {
+        // Thêm tham số lọc query string ?userId=... để json-server chỉ trả về đơn hàng của user này
+        fetch(`http://localhost:3000/orders?userId=${user.id}`, {
             method: "GET",
             headers: {
-                "Authorization": token // Gửi token thay vì truyền URL
+                "Authorization": `Bearer ${token}` // Gửi kèm token theo chuẩn Bearer
             }
         })
         .then(async response => {
@@ -30,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
         })
         .catch(error => {
             console.error(error);
-            ordersContainer.innerHTML = `<p style="text-align: center; color: red;">${error.message}</p>`;
+            ordersContainer.innerHTML = `<p style="text-align: center; color: red; padding: 20px;">${error.message}</p>`;
         });
     }
 
@@ -47,6 +51,13 @@ document.addEventListener("DOMContentLoaded", () => {
         orders.forEach(order => {
             const formattedTotal = order.totalPrice.toLocaleString('vi-VN') + 'đ';
             
+            // Xử lý hiển thị ngày tháng thân thiện nếu createdAt sử dụng chuỗi ISO chuẩn
+            let displayDate = order.createdAt;
+            if (order.createdAt && order.createdAt.includes("T")) {
+                const dateObj = new Date(order.createdAt);
+                displayDate = `${dateObj.getDate().toString().padStart(2, '0')}/${(dateObj.getMonth() + 1).toString().padStart(2, '0')}/${dateObj.getFullYear()}`;
+            }
+
             let itemsHtml = "";
             order.items.forEach(item => {
                 const itemPrice = item.price.toLocaleString('vi-VN') + 'đ';
@@ -64,8 +75,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 `;
             });
 
-            let statusClass = "status-success";
-            if (order.status === "Đang xử lý") statusClass = "status-warning"; 
+            // Đồng bộ class giao diện dựa trên 3 trạng thái mới trong db.json
+            let statusClass = "status-success"; // Mặc định màu xanh cho "Hoàn thành"
+            if (order.status === "Chờ duyệt") {
+                statusClass = "status-warning"; // Màu cam/vàng báo hiệu đang chờ
+            } else if (order.status === "Đang giao") {
+                statusClass = "status-info"; // Màu xanh dương/màu phụ trách đang vận chuyển (nếu css của bạn hỗ trợ)
+            }
             
             html += `
                 <div class="order-card">
@@ -73,7 +89,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         <div class="order-meta">
                             <span class="order-id">Đơn hàng: <strong>#${order.id}</strong></span>
                             <span class="dot"></span>
-                            <span class="order-date">Ngày đặt: <strong>${order.createdAt}</strong></span>
+                            <span class="order-date">Ngày đặt: <strong>${displayDate}</strong></span>
                         </div>
                         <span class="status-badge ${statusClass}">${order.status}</span>
                     </div>

@@ -148,7 +148,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const selectedItems = [];
         let totalPrice = 0;
         
-        // Lọc ra các sản phẩm được chọn mua
+        // Lọc ra các sản phẩm được chọn mua dựa trên trạng thái checked của checkbox
         const itemCheckboxes = document.querySelectorAll(".item-checkbox");
         itemCheckboxes.forEach(checkbox => {
             if (checkbox.checked) {
@@ -158,25 +158,26 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
 
+        // Tạo chuỗi định dạng thời gian ISO chuẩn cho việc sắp xếp/lọc dữ liệu
         const today = new Date();
-        const formattedDate = `${today.getDate().toString().padStart(2, '0')}/${(today.getMonth() + 1).toString().padStart(2, '0')}/${today.getFullYear()}`;
+        const formattedDate = today.toISOString();
 
-        // Tạo dữ liệu Đơn hàng
+        // Tạo dữ liệu Đơn hàng đồng bộ với thiết kế DB yêu cầu
         const newOrder = {
             id: "ORD" + Date.now(), 
             userId: user.id,
             items: selectedItems,
             totalPrice: totalPrice,
             createdAt: formattedDate,
-            status: "Đang xử lý"
+            status: "Chờ duyệt" // Thay đổi từ "Đang xử lý" sang "Chờ duyệt" theo yêu cầu bài học phân quyền
         };
 
-        // Gửi lệnh lên máy chủ kẹp theo Token bảo mật
+        // Gửi lệnh lên máy chủ kèm theo Token bảo mật
         fetch("http://localhost:3000/orders", {
             method: "POST",
             headers: { 
                 "Content-Type": "application/json",
-                "Authorization": token // Bổ sung Thẻ thông hành vào đây
+                "Authorization": `Bearer ${token}` // Chuẩn hóa Header JWT Auth
             },
             body: JSON.stringify(newOrder)
         })
@@ -188,18 +189,18 @@ document.addEventListener("DOMContentLoaded", () => {
             return res.json();
         })
         .then(() => {
-            alert("Thanh toán thành công!");
+            alert("Đặt hàng và thanh toán thành công!");
             
-            // Xóa các sản phẩm đã mua khỏi giỏ hàng
+            // Lọc loại bỏ những sản phẩm đã được thanh toán thành công khỏi LocalStorage
             const remainingCart = cart.filter((_, index) => !itemCheckboxes[index].checked);
             localStorage.setItem("cart", JSON.stringify(remainingCart));
             
-            // Chuyển hướng sang trang lịch sử
+            // Điều hướng sang trang lịch sử đơn hàng của khách hàng
             window.location.href = "history.html";
         })
         .catch(err => {
             console.error(err);
-            alert("Lỗi: " + err.message);
+            alert("Lỗi hệ thống: " + err.message);
         });
     });
 
