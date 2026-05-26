@@ -187,6 +187,23 @@
       "totalPrice": 990000,
       "createdAt": "2026-05-25T19:50:08.135Z",
       "status": "Chờ duyệt"
+    },
+    {
+      "id": "ORD1779739571864",
+      "userId": 3,
+      "items": [
+        {
+          "id": "sp02",
+          "name": "Quạt Xiaomi Smart Standing Fan Pro Slim EU",
+          "price": 3190000,
+          "oldPrice": 3990000,
+          "image": "images/fan-xiaomi.webp",
+          "quantity": 2
+        }
+      ],
+      "totalPrice": 6380000,
+      "createdAt": "2026-05-25T20:06:11.864Z",
+      "status": "Chờ duyệt"
     }
   ]
 }

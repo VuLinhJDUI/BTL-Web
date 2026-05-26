@@ -14,24 +14,27 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // 2. XỬ LÝ GỬI FORM ĐĂNG NHẬP
+    // 2. XỬ LÝ GỬI FORM ĐĂNG NHẬP (Chấp nhận cả Email hoặc Số điện thoại)
     if (loginForm) {
         loginForm.addEventListener("submit", (e) => {
-            e.preventDefault();
+            e.preventDefault(); // Ngăn trình duyệt reload lại trang
 
-            const phone = document.getElementById("phone").value.trim();
+            // Lấy giá trị từ ô nhập tài khoản (Nhận cả Email hoặc SĐT)
+            const usernameInput = document.getElementById("phone").value.trim();
             const password = passwordInput.value.trim();
 
-            if (!phone || !password) {
-                alert("Vui lòng nhập đầy đủ Số điện thoại và Mật khẩu!");
+            if (!usernameInput || !password) {
+                alert("Vui lòng nhập đầy đủ thông tin tài khoản và mật khẩu!");
                 return;
             }
 
+            // Đóng gói payload gửi lên server qua key 'email' định danh
             const loginData = {
-                email: phone, 
+                email: usernameInput, 
                 password: password
             };
 
+            // Gọi API POST tới Node.js Server
             fetch("http://localhost:3000/login", {
                 method: "POST",
                 headers: {
@@ -41,29 +44,29 @@ document.addEventListener("DOMContentLoaded", () => {
             })
             .then(response => {
                 if (!response.ok) {
-                    throw new Error("Sai số điện thoại hoặc mật khẩu!");
+                    throw new Error("Tài khoản hoặc mật khẩu không chính xác!");
                 }
                 return response.json();
             })
             .then(data => {
                 alert("Đăng nhập thành công!");
                 
-                // === BỔ SUNG AUTH: Lưu token, userId và role riêng biệt vào localStorage ===
+                // Lưu Token, userId và quyền hạn role tách biệt vào LocalStorage
                 localStorage.setItem("accessToken", data.accessToken);
                 localStorage.setItem("userId", data.user.id);
                 localStorage.setItem("role", data.user.role || "customer");
                 localStorage.setItem("user", JSON.stringify(data.user));
 
-                // === PHÂN QUYỀN ĐIỀU HƯỚNG UI ===
+                // Phân quyền điều hướng trang giao diện (UI)
                 if (data.user.role === "admin") {
-                    window.location.href = "admin.html"; // Admin vào trang quản trị
+                    window.location.href = "admin.html"; // Tài khoản quản trị vào Dashboard
                 } else {
-                    window.location.href = "index.html"; // Khách hàng về trang chủ
+                    window.location.href = "index.html"; // Khách hàng về trang chủ mua sắm
                 }
             })
             .catch(error => {
                 alert(error.message);
-                console.error("Lỗi đăng nhập:", error);
+                console.error("Lỗi đăng nhập hệ thống:", error);
             });
         });
     }
