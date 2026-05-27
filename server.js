@@ -11,145 +11,257 @@ app.use(express.json());
 
 const dbPath = path.join(__dirname, 'db.json');
 
-const readDB = () => JSON.parse(fs.readFileSync(dbPath, 'utf8'));
-const writeDB = (data) => fs.writeFileSync(dbPath, JSON.stringify(data, null, 2), 'utf8');
-
-// MIDDLEWARE PHÂN QUYỀN
-const requireAuth = (req, res, next) => {
-    const token = req.headers['authorization'];
-    if (!token) return res.status(401).json({ error: "Vui lòng đăng nhập để thực hiện thao tác này!" });
-    req.token = token; 
-    next();
+const readDB = () => {
+    const rawData = fs.readFileSync(dbPath, 'utf8');
+    return JSON.parse(rawData);
 };
 
-const requireAdmin = (req, res, next) => {
-    const token = req.headers['authorization'];
-    if (!token || !token.includes('role:admin')) {
-        return res.status(403).json({ error: "Từ chối truy cập. Chỉ Admin mới có quyền này!" });
-    }
-    next();
+const writeDB = (data) => {
+    fs.writeFileSync(dbPath, JSON.stringify(data, null, 2), 'utf8');
 };
 
-// ROUTES: AUTHENTICATION
-app.post('/register', (req, res) => {
-    try {
-        const { name, email, phone, password } = req.body;
-        const db = readDB();
+// ======================== API SẢN PHẨM (PRODUCTS) ========================
 
-        if (!name || !email || !phone || !password) {
-            return res.status(400).json({ error: "Vui lòng nhập đầy đủ các thông tin yêu cầu!" });
-        }
-
-        const isDuplicate = db.users.some(u => u.email === email || u.phone === phone);
-        if (isDuplicate) {
-            return res.status(400).json({ error: "Địa chỉ email hoặc Số điện thoại này đã được đăng ký tài khoản!" });
-        }
-
-        const nextId = db.users.length > 0 ? Math.max(...db.users.map(u => Number(u.id) || 0)) + 1 : 1;
-
-        const newUser = {
-            id: nextId,
-            email: email,
-            phone: phone,
-            password: password,
-            name: name,
-            role: "customer"
-        };
-
-        db.users.push(newUser);
-        writeDB(db);
-
-        return res.status(201).json({ message: "Đăng ký thành công!", userId: nextId });
-    } catch (error) {
-        return res.status(500).json({ error: "Lỗi xử lý dữ liệu trên máy chủ!" });
-    }
-});
-
-app.post('/login', (req, res) => {
-    const { email, password } = req.body; 
+// 1. Lấy danh sách toàn bộ sản phẩm
+app.get('/products', (req, res) => {
     const db = readDB();
-    
-    const user = db.users.find(u => 
-        (u.email === email || u.phone === email) && u.password === password
-    );
-
-    if (user) {
-        const fakeToken = `Bearer role:${user.role}-id:${user.id}-${Date.now()}`;
-        const { password: _, ...userInfo } = user; 
-        res.status(200).json({ accessToken: fakeToken, user: userInfo });
-    } else {
-        res.status(401).json({ error: "Tài khoản hoặc mật khẩu không chính xác!" });
-    }
+    res.json(db.products);
 });
 
-// ROUTES: PRODUCTS
-app.get('/products', (req, res) => { res.json(readDB().products); });
-
+// 2. Lấy thông tin chi tiết của 1 sản phẩm
 app.get('/products/:id', (req, res) => {
-    const product = readDB().products.find(p => p.id === req.params.id);
-    if (product) res.status(200).json(product);
-    else res.status(404).json({ error: "Không tìm thấy sản phẩm." });
+    const productId = req.params.id;
+    const db = readDB();
+    const product = db.products.find(p => p.id === productId);
+
+    if (product) {
+        res.status(200).json(product);
+    } else {
+        res.status(404).json({ error: "Không tìm thấy sản phẩm" });
+    }
 });
 
-app.post('/products', requireAdmin, (req, res) => {
+// Thêm mới sản phẩm (POST)
+app.post('/products', (req, res) => {
     const db = readDB();
-    const newProduct = { id: "sp" + Date.now(), ...req.body };
+    const newProduct = req.body;
+    
+    // Tự sinh mã sản phẩm dạng số tăng dần (sp01, sp02, sp03...)
+    const maxIdNum = db.products.reduce((max, p) => {
+        const num = parseInt(p.id.replace('sp', ''));
+        return num > max ? num : max;
+    }, 0);
+    newProduct.id = `sp${String(maxIdNum + 1).padStart(2, '0')}`;
+    
+    // Bổ sung các trường spec/mô tả mặc định nếu form để trống để tránh lỗi giao diện client
+    if (!newProduct.specs) {
+        newProduct.specs = { speeds: "3 cấp độ", power: "60W" };
+    }
+    newProduct.rating = 5;
+    newProduct.stock = 50;
+
     db.products.push(newProduct);
     writeDB(db);
-    res.status(201).json({ message: "Thêm sản phẩm thành công", product: newProduct });
+    res.status(201).json(newProduct);
 });
 
-app.put('/products/:id', requireAdmin, (req, res) => {
+// Chỉnh sửa sản phẩm (PUT)
+app.put('/products/:id', (req, res) => {
+    const productId = req.params.id;
     const db = readDB();
-    const index = db.products.findIndex(p => p.id === req.params.id);
+    const index = db.products.findIndex(p => p.id === productId);
+
     if (index !== -1) {
-        db.products[index] = { ...db.products[index], ...req.body, id: req.params.id };
+        // Giữ nguyên ID, các trường cấu hình sâu và cập nhật dữ liệu từ form
+        db.products[index] = { ...db.products[index], ...req.body, id: productId };
         writeDB(db);
-        res.json({ message: "Cập nhật thành công", product: db.products[index] });
-    } else { res.status(404).json({ error: "Không tìm thấy sản phẩm." }); }
-});
-
-app.delete('/products/:id', requireAdmin, (req, res) => {
-    const db = readDB();
-    const initialLength = db.products.length;
-    db.products = db.products.filter(p => p.id !== req.params.id);
-    if (db.products.length < initialLength) {
-        writeDB(db);
-        res.json({ message: "Đã xóa sản phẩm thành công!" });
-    } else { res.status(404).json({ error: "Không tìm thấy mã sản phẩm." }); }
-});
-
-// ROUTES: CATEGORIES & ORDERS
-app.get('/categories', (req, res) => { res.json(readDB().categories); });
-
-app.post('/orders', requireAuth, (req, res) => {
-    const db = readDB();
-    db.orders.push(req.body);
-    writeDB(db);
-    res.status(201).json({ message: "Đặt hàng thành công", order: req.body });
-});
-
-app.get('/orders', requireAuth, (req, res) => {
-    const db = readDB();
-    if (req.token.includes('role:admin')) { res.json(db.orders); }
-    else {
-        const userIdMatch = req.token.match(/id:(\d+)/);
-        const userId = userIdMatch ? parseInt(userIdMatch[1]) : null;
-        res.json(db.orders.filter(order => Number(order.userId) === Number(userId)));
+        res.status(200).json(db.products[index]);
+    } else {
+        res.status(404).json({ error: "Không tìm thấy sản phẩm cần sửa" });
     }
 });
 
-app.patch('/orders/:id', requireAdmin, (req, res) => {
+// Xóa sản phẩm (DELETE)
+app.delete('/products/:id', (req, res) => {
+    const productId = req.params.id;
     const db = readDB();
-    const order = db.orders.find(o => o.id === req.params.id);
-    if (order) {
-        order.status = req.body.status;
+    const index = db.products.findIndex(p => p.id === productId);
+
+    if (index !== -1) {
+        db.products.splice(index, 1);
         writeDB(db);
-        res.status(200).json({ message: "Cập nhật đơn hàng thành công", order });
-    } else { res.status(404).json({ error: "Không tìm thấy thông tin đơn hàng." }); }
+        res.status(200).json({ message: "Xóa sản phẩm thành công" });
+    } else {
+        res.status(404).json({ error: "Sản phẩm không tồn tại" });
+    }
 });
 
-// Khởi chạy server
+
+// ======================== API DANH MỤC (CATEGORIES) ========================
+
+// Lấy danh sách danh mục
+app.get('/categories', (req, res) => {
+    const db = readDB();
+    res.json(db.categories);
+});
+
+// Thêm mới danh mục (POST)
+app.post('/categories', (req, res) => {
+    const db = readDB();
+    const newCategory = req.body;
+
+    // Nếu người dùng không nhập mã danh mục custom, hệ thống tự sinh dạng (cat01, cat02...)
+    if (!newCategory.id) {
+        const maxIdNum = db.categories.reduce((max, c) => {
+            const num = parseInt(c.id.replace('cat', ''));
+            return num > max ? num : max;
+        }, 0);
+        newCategory.id = `cat${String(maxIdNum + 1).padStart(2, '0')}`;
+    }
+
+    // Kiểm tra trùng ID danh mục
+    const existingCat = db.categories.find(c => c.id === newCategory.id);
+    if (existingCat) {
+        return res.status(400).json({ error: "Mã danh mục này đã tồn tại!" });
+    }
+
+    db.categories.push(newCategory);
+    writeDB(db);
+    res.status(201).json(newCategory);
+});
+
+// Chỉnh sửa danh mục (PUT)
+app.put('/categories/:id', (req, res) => {
+    const catId = req.params.id;
+    const db = readDB();
+    const index = db.categories.findIndex(c => c.id === catId);
+
+    if (index !== -1) {
+        db.categories[index].name = req.body.name;
+        writeDB(db);
+        res.status(200).json(db.categories[index]);
+    } else {
+        res.status(404).json({ error: "Không tìm thấy danh mục" });
+    }
+});
+
+// Xóa danh mục (DELETE)
+app.delete('/categories/:id', (req, res) => {
+    const catId = req.params.id;
+    const db = readDB();
+    const index = db.categories.findIndex(c => c.id === catId);
+
+    if (index !== -1) {
+        db.categories.splice(index, 1);
+        writeDB(db);
+        res.status(200).json({ message: "Xóa danh mục thành công" });
+    } else {
+        res.status(404).json({ error: "Danh mục không tồn tại" });
+    }
+});
+
+
+// ======================== API TÀI KHOẢN (USERS) ========================
+
+app.post('/login', (req, res) => {
+    const { email, password } = req.body;
+    const db = readDB();
+    const user = db.users.find(u => u.email === email && u.password === password);
+
+    if (user) {
+        const fakeToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9." + Date.now();
+        res.status(200).json({ accessToken: fakeToken, user: user });
+    } else {
+        res.status(401).json({ error: "Sai số điện thoại hoặc mật khẩu!" });
+    }
+});
+
+app.post('/users', (req, res) => {
+    const { email, password, name, phone } = req.body;
+    const db = readDB();
+
+    const existingUser = db.users.find(u => u.email === email);
+    if (existingUser) {
+        return res.status(400).json({ error: "Email này đã được đăng ký!" });
+    }
+
+    const maxId = db.users.reduce((max, user) => user.id > max ? user.id : max, 0);
+
+    const newUser = {
+        id: maxId + 1,
+        email: email,
+        password: password,
+        name: name,
+        phone: phone,
+        role: "customer"
+    };
+
+    db.users.push(newUser);
+    writeDB(db);
+    res.status(201).json({ message: "Đăng ký thành công!", user: newUser });
+});
+
+app.get('/users', (req, res) => {
+    const db = readDB();
+    const safeUsers = db.users.map(user => {
+        const { password, ...safeUser } = user;
+        return safeUser;
+    });
+    res.json(safeUsers);
+});
+
+app.delete('/users/:id', (req, res) => {
+    const userId = parseInt(req.params.id);
+    const db = readDB();
+    const userIndex = db.users.findIndex(u => u.id === userId);
+
+    if (userIndex !== -1) {
+        db.users.splice(userIndex, 1);
+        writeDB(db);
+        res.status(200).json({ message: "Xóa tài khoản thành công" });
+    } else {
+        res.status(404).json({ error: "Không tìm thấy người dùng" });
+    }
+});
+
+
+// ======================== API ĐƠN HÀNG (ORDERS) ========================
+
+app.get('/orders', (req, res) => {
+    const userId = parseInt(req.query.userId); 
+    const db = readDB();
+
+    if (userId) {
+        const userOrders = db.orders.filter(order => order.userId === userId);
+        res.json(userOrders);
+    } else {
+        res.json(db.orders);
+    }
+});
+
+app.post('/orders', (req, res) => {
+    const newOrder = req.body;
+    const db = readDB();
+    db.orders.push(newOrder);
+    writeDB(db);
+    res.status(201).json(newOrder);
+});
+
+app.patch('/orders/:id', (req, res) => {
+    const orderId = req.params.id;
+    const newStatus = req.body.status;
+    const db = readDB();
+    const orderIndex = db.orders.findIndex(o => o.id === orderId);
+
+    if (orderIndex !== -1) {
+        db.orders[orderIndex].status = newStatus;
+        writeDB(db);
+        res.status(200).json(db.orders[orderIndex]);
+    } else {
+        res.status(404).json({ error: "Không tìm thấy đơn hàng" });
+    }
+});
+
 app.listen(PORT, () => {
-    console.log(`\n🚀 Máy chủ Node.js (ONLYFAN) đang chạy tại: http://localhost:${PORT}`);
+    console.log(`\n🚀 Máy chủ đang chạy tại: http://localhost:${PORT}`);
 });

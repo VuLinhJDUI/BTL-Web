@@ -9,13 +9,31 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/style_pages.css">
+    <style>
+        .top-nav { display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 24px; border-radius: 8px;}
+        .top-nav a { text-decoration: none; color: #1f2937; font-weight: 500; margin-left: 20px;}
+        .top-nav a:hover { color: #d70018;}
+        .top-nav .logo-area { display: flex; align-items: center; gap: 8px; font-size: 20px; font-weight: bold; color: #d70018;}
+    </style>
     <script src="auth.js"></script>
 </head>
 <body class="cart-body">
 
     <div class="cart-container">
+        
+        <div class="top-nav">
+            <a href="index.html" class="logo-area">
+                <i class="fa-solid fa-fan"></i> ONLYFAN
+            </a>
+            <div>
+                <a href="index.html">Trang chủ</a>
+                <a href="index.html#product-list">Danh mục</a>
+                <a href="history.html" style="color: #d70018;">Lịch sử mua hàng</a>
+            </div>
+        </div>
+
         <header class="cart-header">
-            <a href="index.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i></a>
+            <a href="index.html" class="back-btn" title="Tiếp tục mua hàng"><i class="fa-solid fa-arrow-left"></i></a>
             <h2>Giỏ hàng của bạn</h2>
             <div></div>
         </header>

@@ -9,19 +9,155 @@
       "role": "admin"
     },
     {
-      "id": 2,
-      "email": "nguyenvana@gmail.com",
-      "password": "mật_khẩu_sẽ_tự_động_mã_hóa_khi_đăng_ký",
-      "name": "Nguyễn Văn A",
-      "phone": "0987654321",
-      "role": "customer"
-    },
-    {
       "id": 3,
       "email": "lethib@gmail.com",
       "password": "123",
       "name": "Lê Thị B",
       "phone": "0912345678",
+      "role": "customer"
+    },
+    {
+      "id": 4,
+      "email": "vulinh9bz@gmail.com",
+      "password": "123",
+      "name": "Linh Vũ Ngọc",
+      "phone": "012345",
+      "role": "customer"
+    },
+    {
+      "id": 5,
+      "email": "cc@gmail.com",
+      "password": "123",
+      "name": "Vui",
+      "phone": "099997777",
+      "role": "customer"
+    },
+    {
+      "id": 8,
+      "email": "eew@gmail.com",
+      "password": "123",
+      "name": "vc",
+      "phone": "121211111112",
+      "role": "customer"
+    },
+    {
+      "id": 10,
+      "email": "vnfm@gmail.com",
+      "password": "123",
+      "name": "rty",
+      "phone": "1232982",
+      "role": "customer"
+    },
+    {
+      "id": 14,
+      "email": "sdfd@gmail.com",
+      "password": "123",
+      "name": "ttty",
+      "phone": "123333333",
+      "role": "customer"
+    },
+    {
+      "id": 15,
+      "email": "dfsdf@gmail.com",
+      "password": "123",
+      "name": "sdfs",
+      "phone": "3289398",
+      "role": "customer"
+    },
+    {
+      "id": 17,
+      "email": "ssss@gmail.com",
+      "password": "123",
+      "name": "sssf",
+      "phone": "5333333330",
+      "role": "customer"
+    },
+    {
+      "id": 18,
+      "email": "fgnf@gmail.com",
+      "password": "123",
+      "name": "fhh",
+      "phone": "334994393",
+      "role": "customer"
+    },
+    {
+      "id": 19,
+      "email": "feheu@gmail.com",
+      "password": "123",
+      "name": "vvvc",
+      "phone": "9999999990",
+      "role": "customer"
+    },
+    {
+      "id": 20,
+      "email": "sds@fsg.com",
+      "password": "123",
+      "name": "sdsd",
+      "phone": "3284293",
+      "role": "customer"
+    },
+    {
+      "id": 21,
+      "email": "vvvc@gmail.com",
+      "password": "123",
+      "name": "dsdfs",
+      "phone": "733434",
+      "role": "customer"
+    },
+    {
+      "id": 22,
+      "email": "csdfsdf@hjn.vb",
+      "password": "123",
+      "name": "gfs",
+      "phone": "5353452",
+      "role": "customer"
+    },
+    {
+      "id": 23,
+      "email": "fdfd@gmail.com",
+      "password": "123",
+      "name": "aaaa",
+      "phone": "1233333333332",
+      "role": "customer"
+    },
+    {
+      "id": 24,
+      "email": "ddfd@gmail.com",
+      "password": "123",
+      "name": "rrrrr",
+      "phone": "12343333",
+      "role": "customer"
+    },
+    {
+      "id": 25,
+      "email": "xzxzd@scs.vvv",
+      "password": "123",
+      "name": "scđf",
+      "phone": "333333333232",
+      "role": "customer"
+    },
+    {
+      "id": 18,
+      "email": "vuiqua@gmail.com",
+      "password": "123",
+      "name": "Vuui",
+      "phone": "012389776",
+      "role": "customer"
+    },
+    {
+      "id": 19,
+      "email": "hayqua@gmail.com",
+      "password": "123",
+      "name": "Hay qua",
+      "phone": "0222333999",
+      "role": "customer"
+    },
+    {
+      "id": 20,
+      "email": "cocancac@gmail.com",
+      "password": "123",
+      "name": "co cai dau buoi",
+      "phone": "77777777883",
       "role": "customer"
     }
   ],
@@ -41,6 +177,26 @@
     {
       "id": "cat04",
       "name": "Quạt cầm tay - Di động mini"
+    },
+    {
+      "name": "Quạt trần cánh gỗ",
+      "id": "cat05"
+    },
+    {
+      "name": "Quạt treo tường",
+      "id": "cat06"
+    },
+    {
+      "name": "Quạt công nghiệp",
+      "id": "cat07"
+    },
+    {
+      "name": "Quạt cầm tay GOOJODOQ",
+      "id": "cat09"
+    },
+    {
+      "name": "Quạt cây",
+      "id": "cat08"
     }
   ],
   "products": [
@@ -119,6 +275,71 @@
       "rating": 4,
       "stock": 150,
       "description": "Quạt cầm tay phân khúc cao cấp Jisulife Pro1 S với dung lượng pin khủng 5000mAh, động cơ phản lực cho sức gió cực mạnh, điều chỉnh tốc độ vô cấp từ 1 đến 100."
+    },
+    {
+      "name": "Quạt trần Thông Nhất",
+      "price": 3250000,
+      "categoryId": "cat05",
+      "image": "https://bizweb.dktcdn.net/thumb/large/100/391/529/products/quat-tran-vinawind-1500x-1.jpg?v=1689322820413",
+      "id": "sp05",
+      "specs": {
+        "speeds": "3 cấp độ",
+        "power": "60W"
+      },
+      "rating": 5,
+      "stock": 50
+    },
+    {
+      "name": "Quạt treo tường Vinawind",
+      "price": 865000,
+      "categoryId": "cat06",
+      "image": "https://bizweb.dktcdn.net/thumb/large/100/391/529/products/quat-treo-tuong-vinawind-qtt-400x-pn-4.jpg?v=1689325404320",
+      "id": "sp06",
+      "specs": {
+        "speeds": "3 cấp độ",
+        "power": "60W"
+      },
+      "rating": 5,
+      "stock": 50
+    },
+    {
+      "name": "Quạt công nghiệp Vinawind",
+      "price": 1850000,
+      "categoryId": "cat07",
+      "image": "https://bizweb.dktcdn.net/thumb/large/100/391/529/products/quat-cay-cn-vinawind-3-d19c33ba-1751-46be-88e7-d2ea4695514e.jpg?v=1688878977457",
+      "id": "sp07",
+      "specs": {
+        "speeds": "3 cấp độ",
+        "power": "60W"
+      },
+      "rating": 5,
+      "stock": 50
+    },
+    {
+      "name": "Quạt cây Vinawind",
+      "price": 565000,
+      "categoryId": "cat08",
+      "image": "https://bizweb.dktcdn.net/thumb/large/100/391/529/products/qd-400ms-10.jpg?v=1718505327807",
+      "id": "sp08",
+      "specs": {
+        "speeds": "3 cấp độ",
+        "power": "60W"
+      },
+      "rating": 5,
+      "stock": 50
+    },
+    {
+      "name": "Quạt cầm tay mini GOOJODOQ",
+      "price": 249000,
+      "categoryId": "cat09",
+      "image": "https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/q/u/qu_t_5_6.png",
+      "id": "sp09",
+      "specs": {
+        "speeds": "3 cấp độ",
+        "power": "60W"
+      },
+      "rating": 5,
+      "stock": 50
     }
   ],
   "orders": [
@@ -136,7 +357,7 @@
       ],
       "totalPrice": 2390000,
       "createdAt": "20/05/2026",
-      "status": "Đã nhận hàng"
+      "status": "Hoàn thành"
     },
     {
       "id": "ORD2026052102",
@@ -152,10 +373,10 @@
       ],
       "totalPrice": 1980000,
       "createdAt": "21/05/2026",
-      "status": "Đang xử lý"
+      "status": "Đã hủy"
     },
     {
-      "id": "ORD1779738446691",
+      "id": "ORD1779734446691",
       "userId": 3,
       "items": [
         {
@@ -169,7 +390,7 @@
       ],
       "totalPrice": 3190000,
       "createdAt": "2026-05-25T19:47:26.691Z",
-      "status": "Chờ duyệt"
+      "status": "Đã hủy"
     },
     {
       "id": "ORD1779738608135",
@@ -203,6 +424,81 @@
       ],
       "totalPrice": 6380000,
       "createdAt": "2026-05-25T20:06:11.864Z",
+      "status": "Chờ duyệt"
+    },
+    {
+      "id": "ORD1779812617929",
+      "userId": 3,
+      "items": [
+        {
+          "id": "sp04",
+          "name": "Quạt cầm tay cao cấp Jisulife Pro1 S (Fa53 Pro) 5000mAh",
+          "price": 990000,
+          "oldPrice": 1300000,
+          "image": "images/fan-jisulif.webp",
+          "quantity": 1
+        }
+      ],
+      "totalPrice": 990000,
+      "createdAt": "2026-05-26T16:23:37.929Z",
+      "status": "Đang giao"
+    },
+    {
+      "id": "ORD1779875150795",
+      "userId": 3,
+      "items": [
+        {
+          "id": "sp02",
+          "name": "Quạt Xiaomi Smart Standing Fan Pro Slim EU",
+          "price": 3190000,
+          "oldPrice": 3990000,
+          "image": "images/fan-xiaomi.webp",
+          "quantity": 1
+        }
+      ],
+      "totalPrice": 3190000,
+      "createdAt": "2026-05-27T09:45:50.795Z",
+      "status": "Đang giao"
+    },
+    {
+      "id": "ORD1779878579895",
+      "userId": 1,
+      "items": [
+        {
+          "id": "sp01",
+          "name": "Quạt làm mát không khí hơi nước FujiHome AC-17N",
+          "price": 2390000,
+          "oldPrice": 3140000,
+          "image": "images/fan-fujihome.webp",
+          "quantity": 1
+        }
+      ],
+      "totalPrice": 2390000,
+      "createdAt": "2026-05-27T10:42:59.895Z",
+      "status": "Hoàn thành"
+    },
+    {
+      "id": "ORD1779899112290",
+      "userId": 3,
+      "items": [
+        {
+          "id": "sp09",
+          "name": "Quạt cầm tay mini GOOJODOQ",
+          "price": 249000,
+          "image": "https://cdn2.cellphones.com.vn/insecure/rs:fill:358:358/q:90/plain/https://cellphones.com.vn/media/catalog/product/q/u/qu_t_5_6.png",
+          "quantity": 1
+        },
+        {
+          "id": "sp04",
+          "name": "Quạt cầm tay cao cấp Jisulife Pro1 S (Fa53 Pro) 5000mAh",
+          "price": 990000,
+          "oldPrice": 1300000,
+          "image": "images/fan-jisulif.webp",
+          "quantity": 1
+        }
+      ],
+      "totalPrice": 1239000,
+      "createdAt": "2026-05-27T16:25:12.290Z",
       "status": "Chờ duyệt"
     }
   ]

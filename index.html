@@ -10,37 +10,56 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* CSS cho phần Dropdown Danh Mục */
+        .dropdown { position: relative; display: inline-block; cursor: pointer; }
+        .dropdown-content { display: none; position: absolute; background-color: #ffffff; min-width: 260px; box-shadow: 0px 10px 25px rgba(0,0,0,0.1); z-index: 10; border-radius: 8px; top: 100%; left: 0; padding: 8px 0; border: 1px solid #eef2f6;}
+        .dropdown-content a { color: #374151; padding: 12px 20px; text-decoration: none; display: block; font-weight: 500; font-size: 14px; transition: background 0.2s;}
+        .dropdown-content a:hover { background-color: #fef2f2; color: #d70018;}
+        .dropdown:hover .dropdown-content { display: block; }
+        
+        /* CSS cho các lựa chọn (select) trong bộ lọc */
+        .filter-select { padding: 8px 12px; border: 1px solid #e5e7eb; border-radius: 6px; font-size: 14px; outline: none; background: white; cursor: pointer; color: #374151; font-family: 'Inter', sans-serif;}
+        .filter-select:hover { border-color: #d70018; }
+        .filter-buttons { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+    </style>
 </head>
 <body>
 
     <header class="header">
         <div class="container header-content">
-            <a href="#" class="logo">
+            <a href="index.html" class="logo">
                 <i class="fa-solid fa-fan"></i>
                 <span>ONLY<strong>FAN</strong></span>
             </a>
 
             <div class="search-bar">
                 <i class="fa-solid fa-magnifying-glass search-icon"></i>
-                <input type="text" placeholder="Tìm kiếm quạt điện, máy sưởi...">
+                <input type="text" id="search-input" placeholder="Tìm kiếm quạt, hãng, thiết bị...">
             </div>
 
             <nav class="main-nav">
-                <a href="#">Trang chủ</a>
-                <a href="#">Danh mục</a>
-                <a href="#">Khuyến mãi</a>
-                <a href="#">Tin tức</a>
+                <a href="index.html">Trang chủ</a>
+                <div class="dropdown">
+                    <a href="javascript:void(0)" class="dropbtn">Danh mục <i class="fa-solid fa-chevron-down" style="font-size: 12px; margin-left: 4px;"></i></a>
+                    <div class="dropdown-content" id="category-dropdown">
+                        <a href="#">Đang tải danh mục...</a>
+                    </div>
+                </div>
+                <a href="history.html" style="color: #d70018; font-weight: 500;">Lịch sử mua hàng</a>
             </nav>
 
             <div class="header-actions">
                 <a href="cart.html" class="cart-btn">
                     <i class="fa-solid fa-cart-shopping"></i>
-                    <span class="cart-count">4</span>
+                    <span class="cart-count" id="header-cart-count">0</span>
                 </a>
+                
                 <a href="login.html" class="login-btn" id="header-auth-btn">
                     <i class="fa-regular fa-user"></i>
                     Đăng nhập
                 </a>
+                
                 <button class="mobile-menu-btn">
                     <i class="fa-solid fa-bars"></i>
                 </button>
@@ -59,30 +78,50 @@
                 <i class="fa-solid fa-filter"></i> <span>Bộ lọc:</span>
             </div>
             <div class="filter-buttons">
-                <button><i class="fa-solid fa-box"></i> Sẵn hàng</button>
-                <button><i class="fa-solid fa-tag"></i> Xem theo giá <i class="fa-solid fa-chevron-down icon-sm"></i></button>
-                <button>Phạm vi quạt <i class="fa-solid fa-chevron-down icon-sm"></i></button>
-                <button>Công suất <i class="fa-solid fa-chevron-down icon-sm"></i></button>
-                <button>Tiện ích <i class="fa-solid fa-chevron-down icon-sm"></i></button>
-                <button>Hãng <i class="fa-solid fa-chevron-down icon-sm"></i></button>
+                <label style="display: flex; align-items: center; gap: 6px; cursor: pointer; padding: 7px 12px; border: 1px solid #e5e7eb; border-radius: 6px; background: white; font-size: 14px;">
+                    <input type="checkbox" id="filter-stock"> <i class="fa-solid fa-box text-gray-500"></i> Sẵn hàng
+                </label>
+                
+                <select id="filter-price" class="filter-select">
+                    <option value="all">Xem theo giá</option>
+                    <option value="under1m">Dưới 1 triệu</option>
+                    <option value="1m-to-2m">Từ 1 - 2 triệu</option>
+                    <option value="2m-to-3m">Từ 2 - 3 triệu</option>
+                    <option value="above3m">Trên 3 triệu</option>
+                </select>
+
+                <select id="filter-power" class="filter-select">
+                    <option value="all">Công suất</option>
+                    <option value="60W">60W</option>
+                    <option value="Đang cập nhật">Thông minh (Tự động)</option>
+                    <option value="Pin sạc">Pin sạc / Di động</option>
+                    <option value="5000mAh">5000mAh</option>
+                </select>
+
+                <select id="filter-select-speeds" class="filter-select">
+                    <option value="all">Tiện ích (Chế độ gió)</option>
+                    <option value="3 cấp độ">3 cấp độ</option>
+                    <option value="Thông minh">Thông minh</option>
+                    <option value="Đa chế độ">Đa chế độ</option>
+                    <option value="Vô cấp">Vô cấp</option>
+                </select>
             </div>
             
-            <div class="sort-section">
+            <div class="sort-section" id="sort-buttons">
                 <span>Sắp xếp theo:</span>
-                <button class="active"><i class="fa-solid fa-star"></i> Phổ biến</button>
-                <button>Khuyến mãi HOT</button>
-                <button><i class="fa-solid fa-arrow-up-1-9"></i> Giá Thấp - Cao</button>
-                <button><i class="fa-solid fa-arrow-down-9-1"></i> Giá Cao - Thấp</button>
+                <button class="sort-btn active" data-sort="popular"><i class="fa-solid fa-star"></i> Phổ biến</button>
+                <button class="sort-btn" data-sort="promo">Khuyến mãi HOT</button>
+                <button class="sort-btn" data-sort="price-asc"><i class="fa-solid fa-arrow-up-1-9"></i> Giá Thấp - Cao</button>
+                <button class="sort-btn" data-sort="price-desc"><i class="fa-solid fa-arrow-down-9-1"></i> Giá Cao - Thấp</button>
             </div>
         </section>
 
         <section class="product-grid" id="product-list">
-            
         </section>
 
-        <div class="load-more">
-            <button class="btn-outline">
-                Xem thêm 172 sản phẩm <i class="fa-solid fa-chevron-down"></i>
+        <div class="load-more" id="load-more-container" style="display: none; text-align: center; margin-top: 30px;">
+            <button class="btn-outline" id="load-more-btn">
+                Xem thêm sản phẩm <i class="fa-solid fa-chevron-down"></i>
             </button>
         </div>
 
@@ -106,7 +145,7 @@
     <footer class="footer">
         <div class="container footer-grid">
             <div class="footer-col">
-                <a href="#" class="footer-logo">
+                <a href="index.html" class="footer-logo">
                     <i class="fa-solid fa-fan"></i>
                     <span>ONLY<strong>FAN</strong></span>
                 </a>
@@ -132,11 +171,11 @@
             <div class="footer-col">
                 <h4>Tra cứu thông tin</h4>
                 <ul>
+                    <li><a href="history.html">Lịch sử mua hàng</a></li>
                     <li><a href="#">Tra điểm thẻ thành viên</a></li>
                     <li><a href="#">Kiểm tra đơn hàng</a></li>
                     <li><a href="#">Tra cứu thông tin bảo hành</a></li>
                     <li><a href="#">Trung tâm bảo hành chính hãng</a></li>
-                    <li><a href="#">Tuyển dụng</a></li>
                 </ul>
             </div>
 

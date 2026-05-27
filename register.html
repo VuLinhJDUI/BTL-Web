@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng ký tài khoản - OnlyFan</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body.auth-body {
+            background: #f4f6f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .auth-container {
+            background: #ffffff;
+            width: 100%;
+            max-width: 400px;
+            padding: 40px 32px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eef2f6;
+        }
+
+        /* Thêm style cho logo */
+        .logo-box {
+            text-align: center;
+            margin-bottom: 24px;
+            font-size: 28px;
+            font-weight: 700;
+            color: #d70018;
+            text-decoration: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+        .logo-box i { color: #d70018; }
+        .logo-box span { color: #111827; }
+
+        .auth-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #374151; 
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .auth-form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px; 
+        }
+
+        .form-group {
+            width: 100%;
+        }
+
+        .auth-form input {
+            width: 100%;
+            padding: 14px 16px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #1f2937;
+            background-color: #ffffff;
+            border: 1px solid #d1d5db;
+            border-radius: 10px; 
+            outline: none;
+            transition: all 0.2s ease-in-out;
+        }
+
+        .auth-form input:focus {
+            border-color: #d70018;
+            box-shadow: 0 0 0 3px rgba(215, 0, 24, 0.1);
+            background-color: #fff;
+        }
+
+        .auth-form input::placeholder {
+            color: #9ca3af;
+            font-weight: 400;
+        }
+
+        .btn-register {
+            width: 100%;
+            background: #d70018;
+            color: #ffffff;
+            border: none;
+            padding: 14px;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 8px;
+            transition: background 0.2s;
+        }
+
+        .btn-register:hover {
+            background: #b50014;
+        }
+
+        .auth-redirect {
+            text-align: center;
+            margin-top: 24px;
+            font-size: 14px;
+            color: #6b7280;
+        }
+
+        .auth-redirect a {
+            color: #d70018;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .auth-redirect a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body class="auth-body">
+
+    <div class="auth-container">
+        <a href="index.html" class="logo-box">
+            <i class="fa-solid fa-fan"></i>
+            <span>ONLY<strong style="color: #d70018;">FAN</strong></span>
+        </a>
+
+        <h1 class="auth-title">Đăng ký tài khoản</h1>
+        
+        <form class="auth-form" id="register-form">
+            <div class="form-group">
+                <input type="text" id="name" placeholder="Họ và tên" autocomplete="name" required>
+            </div>
+            
+            <div class="form-group">
+                <input type="email" id="email" placeholder="Địa chỉ email" autocomplete="email" required>
+            </div>
+            
+            <div class="form-group">
+                <input type="tel" id="phone" placeholder="Số điện thoại" autocomplete="tel" required>
+            </div>
+            
+            <div class="form-group">
+                <input type="password" id="password" placeholder="Mật khẩu" autocomplete="new-password" required>
+            </div>
+            
+            <button type="submit" class="btn-register">Tạo tài khoản</button>
+        </form>
+
+        <div class="auth-redirect">
+            Bạn đã có tài khoản? <a href="login.html">Đăng nhập ngay</a>
+        </div>
+    </div>
+
+    <script src="register.js"></script>
+</body>
+</html>

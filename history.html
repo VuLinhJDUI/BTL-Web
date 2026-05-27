@@ -9,11 +9,34 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/style_pages.css">
+    <style>
+        .top-nav { display: flex; justify-content: space-between; align-items: center; padding: 16px 24px; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 24px; border-radius: 8px;}
+        .top-nav a { text-decoration: none; color: #1f2937; font-weight: 500; margin-left: 20px;}
+        .top-nav a:hover { color: #d70018;}
+        .top-nav .logo-area { display: flex; align-items: center; gap: 8px; font-size: 20px; font-weight: bold; color: #d70018;}
+        
+        /* CSS tối ưu cho bộ chọn ngày mới */
+        .date-input { border: none; outline: none; font-family: 'Inter', sans-serif; color: #374151; background: transparent; padding: 4px; font-size: 14px; cursor: pointer; width: 135px;}
+        .btn-filter-date { background: #d70018; color: white; border: none; padding: 6px 14px; border-radius: 4px; cursor: pointer; font-size: 13px; font-weight: 600; transition: background 0.2s; margin-left: 8px;}
+        .btn-filter-date:hover { background: #b50014;}
+    </style>
     <script src="auth.js"></script>
 </head>
 <body class="history-body">
 
     <div class="history-container">
+        
+        <div class="top-nav">
+            <a href="index.html" class="logo-area">
+                <i class="fa-solid fa-fan"></i> ONLYFAN
+            </a>
+            <div>
+                <a href="index.html">Trang chủ</a>
+                <a href="index.html#product-list">Danh mục</a>
+                <a href="cart.html"><i class="fa-solid fa-cart-shopping"></i> Giỏ hàng</a>
+            </div>
+        </div>
+
         <header class="cart-header" style="margin-bottom: 20px; border-bottom: none; padding: 0;">
             <a href="index.html" class="back-btn"><i class="fa-solid fa-arrow-left"></i> Về trang chủ</a>
         </header>
@@ -29,11 +52,12 @@
 
         <div class="date-filter-row">
             <span class="filter-label">Lịch sử mua hàng</span>
-            <div class="date-picker-box">
-                <span class="date-text">01/12/2020</span>
-                <i class="fa-solid fa-arrow-right"></i>
-                <span class="date-text">19/05/2026</span>
-                <i class="fa-regular fa-calendar-days calendar-icon"></i>
+            
+            <div class="date-picker-box" style="display: flex; align-items: center; gap: 4px; background: white; padding: 4px 8px; border-radius: 6px; border: 1px solid #e5e7eb;">
+                <input type="date" id="start-date" class="date-input" title="Từ ngày">
+                <i class="fa-solid fa-arrow-right" style="color: #9ca3af; font-size: 12px; margin: 0 4px;"></i>
+                <input type="date" id="end-date" class="date-input" title="Đến ngày">
+                <button id="filter-date-btn" class="btn-filter-date">Lọc</button>
             </div>
         </div>
 

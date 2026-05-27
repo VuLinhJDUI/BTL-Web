@@ -81,11 +81,39 @@
             </div>
 
             <div id="tab-categories" class="tab-content hidden bg-white rounded-lg shadow-sm border p-6">
-                <h2 class="text-lg font-semibold mb-4">Quản lý Danh mục</h2>
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-lg font-semibold">Danh sách Danh mục sản phẩm</h2>
+                    <button onclick="openCategoryModal()" class="bg-primary hover:bg-red-700 text-white px-4 py-2 rounded-md text-sm font-medium flex items-center gap-2">
+                        <i class="fa-solid fa-plus"></i> Thêm danh mục mới
+                    </button>
+                </div>
+                <table class="w-full text-left text-sm">
+                    <thead class="bg-gray-50 text-gray-600 border-b">
+                        <tr>
+                            <th class="p-3">Mã danh mục</th>
+                            <th class="p-3">Tên danh mục</th>
+                            <th class="p-3 text-right">Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody id="category-list-table"></tbody>
+                </table>
             </div>
 
             <div id="tab-users" class="tab-content hidden bg-white rounded-lg shadow-sm border p-6">
-                <h2 class="text-lg font-semibold mb-4">Quản lý Tài khoản</h2>
+                <h2 class="text-lg font-semibold mb-4">Danh sách Tài khoản người dùng</h2>
+                <table class="w-full text-left text-sm">
+                    <thead class="bg-gray-50 text-gray-600 border-b">
+                        <tr>
+                            <th class="p-3">ID</th>
+                            <th class="p-3">Họ và tên</th>
+                            <th class="p-3">Email / SĐT đăng nhập</th>
+                            <th class="p-3">Số điện thoại liên hệ</th>
+                            <th class="p-3">Quyền hạn</th>
+                            <th class="p-3 text-right">Hành động</th>
+                        </tr>
+                    </thead>
+                    <tbody id="user-list-table"></tbody>
+                </table>
             </div>
 
             <div id="tab-orders" class="tab-content hidden bg-white rounded-lg shadow-sm border p-6">
@@ -95,11 +123,12 @@
                         <tr>
                             <th class="p-3">Mã Đơn</th>
                             <th class="p-3">ID Khách</th>
-                            <th class="p-3">Ngày đặt đơn</th>
-                            <th class="p-3">Tổng thanh toán</th>
+                            <th class="p-3">Tên Khách Hàng</th>
+                            <th class="p-3">Sản phẩm</th> <th class="p-3">Ngày đặt</th>
+                            <th class="p-3">Tổng tiền</th>
                             <th class="p-3">Trạng thái</th>
-                            <th class="p-3 text-center">Hành động nhanh</th>
-                            <th class="p-3 text-right">Thay đổi trạng thái</th>
+                            <th class="p-3 text-center">Hành động</th>
+                            <th class="p-3 text-right">Thay đổi</th>
                         </tr>
                     </thead>
                     <tbody id="order-list-table"></tbody>
@@ -137,6 +166,32 @@
                 <div class="flex justify-end gap-2 mt-6 border-t pt-4">
                     <button type="button" onclick="closeModal()" class="px-4 py-2 border rounded-md text-sm">Hủy</button>
                     <button type="submit" class="px-4 py-2 bg-primary text-white rounded-md text-sm">Lưu dữ liệu</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="category-modal" class="fixed inset-0 bg-black bg-opacity-50 hidden flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg w-full max-w-md p-6">
+            <div class="flex justify-between items-center mb-4 border-b pb-2">
+                <h3 id="cat-modal-title" class="text-lg font-bold">Thêm Danh Mục Mới</h3>
+                <button onclick="closeCategoryModal()" class="text-gray-500 hover:text-gray-800 text-xl">&times;</button>
+            </div>
+            <form id="category-form" onsubmit="handleCategorySubmit(event)">
+                <input type="hidden" id="edit-cat-id">
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Mã danh mục (Để trống nếu thêm mới để hệ thống tự sinh)</label>
+                        <input type="text" id="input-cat-id" placeholder="Ví dụ: cat05" class="w-full border rounded-md px-3 py-2 text-sm focus:outline-none focus:border-primary bg-gray-50">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium mb-1">Tên danh mục</label>
+                        <input type="text" id="input-cat-name" required placeholder="Ví dụ: Quạt trần cánh gỗ" class="w-full border rounded-md px-3 py-2 text-sm focus:outline-none focus:border-primary">
+                    </div>
+                </div>
+                <div class="flex justify-end gap-2 mt-6 border-t pt-4">
+                    <button type="button" onclick="closeCategoryModal()" class="px-4 py-2 border rounded-md text-sm">Hủy</button>
+                    <button type="submit" class="px-4 py-2 bg-primary text-white rounded-md text-sm">Lưu danh mục</button>
                 </div>
             </form>
         </div>
